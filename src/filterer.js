@@ -32,5 +32,6 @@ console.log('fbmembers length: ', fbmembers.length)
 console.log('fbm found in io: ', fbmFoundInIO.length)
 console.log('fbm not found in io: ', fbmNotFoundInIO.length)
 
-fs.writeFileSync('output/FBmembers_not_in_iIO.json', JSON.stringify(fbmNotFoundInIO, null, 2))
+fs.writeFileSync('output/FBmembers_not_found_in_iIO.json', JSON.stringify(fbmNotFoundInIO, null, 2))
+fs.writeFileSync('output/FBmembers_found_in_iIO.json', JSON.stringify(fbmFoundInIO, null, 2))
 
