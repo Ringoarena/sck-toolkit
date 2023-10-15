@@ -1,0 +1,19 @@
+{
+  "name": "sck-toolkit",
+  "version": "1.0.0",
+  "description": "sck toolkit",
+  "main": "filterer.js",
+  "scripts": {
+    "start": "node src/filterer.js",
+    "test": "test"
+  },
+  "keywords": [
+    "Data",
+    "Filtering"
+  ],
+  "author": "Rikard Virta",
+  "license": "ISC",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
