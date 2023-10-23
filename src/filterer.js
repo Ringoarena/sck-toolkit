@@ -4,22 +4,31 @@ const XLSX = require('xlsx')
 const fbmembers = require('../input/fbmembers.json')
 const iomembers = []
 
-const workbook = XLSX.readFile('./input/iomembers.xlsx')
+const workbook = XLSX.readFile('./input/ExportedPersons.xlsx')
 const sheets = workbook.SheetNames;
 for (let i = 0; i < sheets.length; i++) {
   const temp = XLSX.utils.sheet_to_json(
     workbook.Sheets[workbook.SheetNames[i]])
   temp.forEach((res) => {
-    iomembers.push({ name: `${res.Förnamn} ${res.Efternamn}` })
+    iomembers.push({ name: `${res.Förnamn} ${res.Efternamn}`, miscInfo: res['Övrig medlemsinfo'] })
   })
 }
-
-
 
 const fbmFoundInIO = []
 const fbmNotFoundInIO = []
 fbmembers.forEach((fbm) => {
-  const foundInIo = Boolean(iomembers.find((iom) => iom.name === fbm.name))
+  const foundInIo = Boolean(iomembers.find((iom) => {
+    let nameOrAliasMatched = false
+    const nameMatches = iom.name.toLowerCase() === fbm.name.toLowerCase()
+    if (nameMatches) {
+      nameOrAliasMatched = true
+    }
+    const aliasMatches = iom.miscInfo.toLowerCase().includes(fbm.name.toLocaleLowerCase())
+    if (aliasMatches) {
+      nameOrAliasMatched = true
+    }
+    return nameOrAliasMatched
+  }))
   if (foundInIo) {
     fbmFoundInIO.push(fbm)
   } else {
